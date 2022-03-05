@@ -19,7 +19,9 @@ BuildRequires:	python3-devel >= 1:3.6
 BuildRequires:	python3-modules >= 1:3.6
 BuildRequires:	python3-setuptools
 %if %{with tests}
+BuildRequires:	python3-jinja2
 BuildRequires:	python3-pytest
+BuildRequires:	python3-railroad-diagrams
 %endif
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
