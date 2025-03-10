@@ -1,14 +1,20 @@
 #
 # Conditional build:
-%bcond_without	doc	# Sphinx documentation
-%bcond_without	tests	# unit tests
+%bcond_without	doc		# Sphinx documentation
+%bcond_without	tests		# unit tests
+%bcond_with	bootstrap	# bootstraping for python-rpm-packaging (rpm-pythonprov)
 
-%define 	module	pyparsing
+%if %{with bootstrap}
+%undefine	with_doc
+%undefine	with_tests
+%endif
+
+%define		module	pyparsing
 Summary:	pyparsing - Python 3 module for creating executing simple grammars
 Summary(pl.UTF-8):	pyparsing - moduł Pythona 3 umożliwiający tworzenie i parsowanie prostych gramatyk
 Name:		python3-%{module}
 Version:	3.0.7
-Release:	3
+Release:	3.1
 License:	MIT
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/pyparsing/
@@ -23,7 +29,7 @@ BuildRequires:	python3-jinja2
 BuildRequires:	python3-pytest
 BuildRequires:	python3-railroad-diagrams
 %endif
-BuildRequires:	rpm-pythonprov
+%{!?with_bootstrap:BuildRequires:	rpm-pythonprov}
 BuildRequires:	rpmbuild(macros) >= 1.714
 %{?with_doc:BuildRequires:	sphinx-pdg-3}
 Requires:	python3-modules >= 1:3.6
