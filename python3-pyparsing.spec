@@ -13,26 +13,31 @@
 Summary:	pyparsing - Python 3 module for creating executing simple grammars
 Summary(pl.UTF-8):	pyparsing - moduł Pythona 3 umożliwiający tworzenie i parsowanie prostych gramatyk
 Name:		python3-%{module}
-Version:	3.0.7
-Release:	4
+Version:	3.2.3
+Release:	1
 License:	MIT
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/pyparsing/
 Source0:	https://files.pythonhosted.org/packages/source/p/pyparsing/%{module}-%{version}.tar.gz
-# Source0-md5:	9d38774991175444e21a3dfa865876cc
+# Source0-md5:	cc302d3f74bd1c56b4895d7186e4dd68
 URL:		https://github.com/pyparsing/pyparsing/
-BuildRequires:	python3-devel >= 1:3.6
+BuildRequires:	python3-build
+BuildRequires:	python3-devel >= 1:3.9
+BuildRequires:	python3-flit_core >= 3.2
+BuildRequires:	python3-flit_core < 4
+BuildRequires:	python3-installer
 BuildRequires:	python3-modules >= 1:3.6
-BuildRequires:	python3-setuptools
 %if %{with tests}
 BuildRequires:	python3-jinja2
+# (optional, for matplotlib integration tests)
+BuildRequires:	python3-matplotlib
 BuildRequires:	python3-pytest
 BuildRequires:	python3-railroad-diagrams
 %endif
 %{!?with_bootstrap:BuildRequires:	rpm-pythonprov}
-BuildRequires:	rpmbuild(macros) >= 1.714
+BuildRequires:	rpmbuild(macros) >= 2.044
 %{?with_doc:BuildRequires:	sphinx-pdg-3}
-Requires:	python3-modules >= 1:3.6
+Requires:	python3-modules >= 1:3.9
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -78,7 +83,7 @@ Pakiet zawierający przykładowe skrypty dla modułu Pythona pyparsing.
 %setup -q -n %{module}-%{version}
 
 %build
-%py3_build
+%py3_build_pyproject
 
 %if %{with tests}
 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
@@ -94,7 +99,7 @@ PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
-%py3_install
+%py3_install_pyproject
 
 cp -a examples/* $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
@@ -105,7 +110,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc CHANGES LICENSE README.rst
 %{py3_sitescriptdir}/pyparsing
-%{py3_sitescriptdir}/pyparsing-*.egg-info
+%{py3_sitescriptdir}/pyparsing-%{version}.dist-info
 
 %if %{with doc}
 %files doc
