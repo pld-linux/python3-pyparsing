@@ -13,13 +13,13 @@
 Summary:	pyparsing - Python 3 module for creating executing simple grammars
 Summary(pl.UTF-8):	pyparsing - moduł Pythona 3 umożliwiający tworzenie i parsowanie prostych gramatyk
 Name:		python3-%{module}
-Version:	3.2.3
+Version:	3.3.2
 Release:	1
 License:	MIT
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/pyparsing/
 Source0:	https://files.pythonhosted.org/packages/source/p/pyparsing/%{module}-%{version}.tar.gz
-# Source0-md5:	cc302d3f74bd1c56b4895d7186e4dd68
+# Source0-md5:	ca3bea68cd1a84584b68cd7bed679464
 URL:		https://github.com/pyparsing/pyparsing/
 BuildRequires:	python3-build
 BuildRequires:	python3-devel >= 1:3.9
