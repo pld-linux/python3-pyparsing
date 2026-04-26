@@ -23,10 +23,10 @@ Source0:	https://files.pythonhosted.org/packages/source/p/pyparsing/%{module}-%{
 URL:		https://github.com/pyparsing/pyparsing/
 BuildRequires:	python3-build
 BuildRequires:	python3-devel >= 1:3.9
-BuildRequires:	python3-flit_core >= 3.2
+BuildRequires:	python3-flit_core >= 3.12
 BuildRequires:	python3-flit_core < 4
 BuildRequires:	python3-installer
-BuildRequires:	python3-modules >= 1:3.6
+BuildRequires:	python3-modules >= 1:3.9
 %if %{with tests}
 BuildRequires:	python3-jinja2
 # (optional, for matplotlib integration tests)
@@ -36,7 +36,10 @@ BuildRequires:	python3-railroad-diagrams
 %endif
 %{!?with_bootstrap:BuildRequires:	rpm-pythonprov}
 BuildRequires:	rpmbuild(macros) >= 2.044
-%{?with_doc:BuildRequires:	sphinx-pdg-3}
+%if %{with doc}
+BuildRequires:	python3-myst_parser
+BuildRequires:	sphinx-pdg-3
+%endif
 Requires:	python3-modules >= 1:3.9
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
